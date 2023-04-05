@@ -1,5 +1,5 @@
 {
-  "name": "websocket-server",
+  "name": "@scorpion1201/websocket-server",
   "version": "0.1.2",
   "author": {
     "name": "David Park",
