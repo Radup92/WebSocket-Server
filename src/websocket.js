@@ -314,7 +314,9 @@ websocket.fn.extend({
                     }
                 }
             }
-            if ( "SCORPION-REMOTE-ADDR" in header ) remote_addr = header[ "SCORPION-REMOTE-ADDR" ];
+            if ( "SCORPION-REMOTE-ADDR" in header ) {
+              remote_addr = header[ "SCORPION-REMOTE-ADDR" ]
+            }
 
             /* websocket handshake */
             if ( method != null ){
@@ -388,6 +390,9 @@ websocket.fn.extend({
 
                     /* websocket clinet */
                     ws.clients.push( client );
+
+                    /* emit connect event */
+                    emitter.emit("connect", client)
 
                 }
                 else {
@@ -563,10 +568,13 @@ websocket.fn.extend({
                     break;
                     case 0x08:
                         if ( ws.clients.length > 0 ){
-                            let idx = ws.clients.indexOf( client );
+                            let idx = ws.clients.indexOf( client )
                             if ( idx > -1 ){
-                                ws.clients.splice(idx, 1);
-                                console.log( "client( " + client.remote_addr + " ) disconnected!!" );
+                                ws.clients.splice(idx, 1)
+                                console.log( "client( " + client.remote_addr + " ) disconnected!!" )
+
+                                /* emit disconnect event */
+                                emitter.emit("disconnect", client)
                             }
                         }
                         socket.end( );
